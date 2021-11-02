@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div x-data="create">
+      No:
+      <input type="number" x-model.number="no" />
+      Page:
+      <input type="number" x-model.number="page" />
+      Ans:
+      <input type="number" x-model.number="ans" @keyup.enter="add" />
+      <button @click="add">Add</button>
+      <hr />
+      <textarea
+        name=""
+        id=""
+        cols="150"
+        rows="50"
+        x-model="JSON.stringify(result)"
+      ></textarea>
+    </div>
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("create", () => ({
+          init() {
+            this.no = 1;
+            this.page = 1;
+            this.ans = null;
+            this.result = {};
+          },
+          add() {
+            if (!this.ans) return;
+            this.result[this.no] = {
+              ans: this.ans,
+              page: this.page,
+            };
+            this.no++;
+            this.ans = null;
+          },
+        }));
+      });
+    </script>
+  </body>
+</html>
