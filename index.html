@@ -80,6 +80,7 @@
             <select class="column" x-model="chapter">
               <option value="all">全部</option>
               <option value="mistake">錯誤</option>
+              <option value="mistake2">重大錯誤</option>
               <template x-for="item in Object.keys(db[main][sub])" :key="item">
                 <option :value="item" x-text="item"></option>
               </template>

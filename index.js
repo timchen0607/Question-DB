@@ -30,8 +30,10 @@ document.addEventListener("alpine:init", () => {
             : 0;
           if (
             (this.chapter === "mistake" && quDB[chapter][no].score >= 0) ||
+            (this.chapter === "mistake2" && quDB[chapter][no].score > -3) ||
             (this.chapter !== "all" &&
               this.chapter !== "mistake" &&
+              this.chapter !== "mistake2" &&
               this.chapter !== chapter)
           )
             return;
