@@ -106,16 +106,17 @@
           <div>
             <hr />
             <h3>
+              <strong x-text="question[quNo].chapter"></strong> ｜
+              <strong x-text="'All: '+question.length"></strong>
+            </h3>
+            <h3>
               <strong x-text="'No: '+question[quNo].no"></strong> ｜
-              <strong x-text="'Page: '+question[quNo].page"></strong>
+              <span x-text="'Page: '+question[quNo].page"></span> ｜
             </h3>
             <h4>
-              <span x-text="'Score: '+question[quNo].score"></span> ｜
-              <template x-if="result === true">
-                <span>True</span>
-              </template>
-              <template x-if="result === false">
-                <span x-text="'Ans: '+question[quNo].ans"></span>
+              <strong x-text="'Score: '+question[quNo].score"></strong> ｜ Ans:
+              <template x-if="result !== null">
+                <span x-text="''+question[quNo].ans"></span>
               </template>
             </h4>
             <div class="myRow">
