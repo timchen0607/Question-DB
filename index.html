@@ -5,47 +5,125 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Question Database</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+      .bg {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .bg-true {
+        background-color: #198754;
+      }
+      .bg-false {
+        background-color: #dc3545;
+      }
+      .box {
+        width: 100%;
+        max-width: 500px;
+        padding: min(3rem, 3vw);
+        background-color: #ffffff88;
+        border-radius: 1rem;
+      }
+      select {
+        background-color: #fff;
+        cursor: pointer;
+      }
+      .column + .column {
+        margin: 0 0 0.5rem 0.5rem;
+      }
+      .button-outline {
+        font-size: 1.5rem;
+        color: #000 !important;
+        background-color: transparent !important;
+        border-color: #000;
+        transition: color 0.5s, background-color 0.5s;
+      }
+      .button-outline:hover {
+        color: #fff !important;
+        background-color: #000 !important;
+      }
+      .button-outline:focus {
+        color: #fff !important;
+        background-color: #000 !important;
+      }
+    </style>
   </head>
   <body>
-    <div class="wrap" x-data="question">
-      <template x-if="!!type">
-        <div>
-          <select x-model="main">
-            <template x-for="item in Object.keys(db)" :key="item">
-              <option :value="item" x-text="item"></option>
-            </template>
-          </select>
-          <select x-model="sub">
-            <template x-for="item in Object.keys(db[main])" :key="item">
-              <option :value="item" x-text="item"></option>
-            </template>
-          </select>
-          <select x-model="chapter">
-            <option value="all">全部</option>
-            <option value="mistake">錯誤</option>
-            <template x-for="item in Object.keys(db[main][sub])" :key="item">
-              <option :value="item" x-text="item"></option>
-            </template>
-          </select>
-          <select x-model="type">
-            <option value="order">順序</option>
-            <option value="random">隨機</option>
-          </select>
-          <button @click="generate">出題!</button>
-        </div>
-      </template>
-      <template x-if="question.length > 0 && question.length > quNo + 1">
-        <div>
-          <p x-text="'No.'+question[quNo].no"></p>
-          <p x-text="'Page.'+question[quNo].page"></p>
-          <p x-text="'Score.'+question[quNo].score"></p>
-          <input type="radio" x-model="choose" @click="compare(1)" />1
-          <input type="radio" x-model="choose" @click="compare(2)" />2
-          <input type="radio" x-model="choose" @click="compare(3)" />3
-          <input type="radio" x-model="choose" @click="compare(4)" />4
-          <button @click="quNo++;choose = null;">Next</button>
-        </div>
-      </template>
+    <div class="bg bg-true" x-data="question">
+      <div class="box">
+        <template x-if="!!type">
+          <div class="row">
+            <select class="column" x-model="main">
+              <template x-for="item in Object.keys(db)" :key="item">
+                <option :value="item" x-text="item"></option>
+              </template>
+            </select>
+            <select class="column" x-model="sub">
+              <template x-for="item in Object.keys(db[main])" :key="item">
+                <option :value="item" x-text="item"></option>
+              </template>
+            </select>
+            <select class="column" x-model="chapter">
+              <option value="all">全部</option>
+              <option value="mistake">錯誤</option>
+              <template x-for="item in Object.keys(db[main][sub])" :key="item">
+                <option :value="item" x-text="item"></option>
+              </template>
+            </select>
+          </div>
+        </template>
+        <template x-if="!!type">
+          <div class="row">
+            <select class="column" x-model="type">
+              <option value="order">順序</option>
+              <option value="random">隨機</option>
+            </select>
+            <button class="column column-67" @click="generate">出題!</button>
+          </div>
+        </template>
+        <template x-if="question.length > 0 && question.length > quNo + 1">
+          <div>
+            <hr />
+            <h3>
+              <strong
+                x-text="'No: '+question[quNo].no + '｜Page: '+question[quNo].page"
+              ></strong>
+            </h3>
+            <h4 x-text="'Score: '+question[quNo].score"></h4>
+            <div class="row">
+              <button class="column button-outline" @click="compare(1)">
+                1
+              </button>
+              <button class="column button-outline" @click="compare(2)">
+                2
+              </button>
+            </div>
+            <div class="row">
+              <button class="column button-outline" @click="compare(3)">
+                3
+              </button>
+              <button class="column button-outline" @click="compare(4)">
+                4
+              </button>
+            </div>
+            <div class="row">
+              <button class="column" @click="quNo++;choose = null;">
+                下一題
+              </button>
+            </div>
+          </div>
+        </template>
+      </div>
     </div>
 
     <script src="//unpkg.com/alpinejs" defer></script>
