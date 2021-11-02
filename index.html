@@ -35,25 +35,35 @@
         background-color: #ffffff88;
         border-radius: 1rem;
       }
-      select {
+      .myRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .myRow .column {
+        width: 30%;
+        margin: 0.3rem;
         background-color: #fff;
         cursor: pointer;
       }
-      .column + .column {
-        margin: 0 0 0.5rem 0.5rem;
+      .myRow .btn {
+        width: 64.1%;
+        margin: 0.3rem;
       }
-      .button-outline {
+      .myRow .button-outline {
+        width: 47%;
         font-size: 1.5rem;
         color: #000 !important;
         background-color: transparent !important;
         border-color: #000;
         transition: color 0.5s, background-color 0.5s;
       }
-      .button-outline:hover {
+      .myRow .button-outline:hover {
         color: #fff !important;
         background-color: #000 !important;
       }
-      .button-outline:focus {
+      .myRow .button-outline:focus {
         color: #fff !important;
         background-color: #000 !important;
       }
@@ -66,7 +76,7 @@
     >
       <div class="box">
         <template x-if="!!type">
-          <div class="row">
+          <div class="myRow">
             <select class="column" x-model="main">
               <template x-for="item in Object.keys(db)" :key="item">
                 <option :value="item" x-text="item"></option>
@@ -85,15 +95,11 @@
                 <option :value="item" x-text="item"></option>
               </template>
             </select>
-          </div>
-        </template>
-        <template x-if="!!type">
-          <div class="row">
             <select class="column" x-model="type">
               <option value="order">順序</option>
               <option value="random">隨機</option>
             </select>
-            <button class="column column-67" @click="generate">出題!</button>
+            <button class="btn" @click="generate">出題!</button>
           </div>
         </template>
         <template x-if="question.length > 0 && question.length > quNo + 1">
@@ -112,21 +118,11 @@
                 <span x-text="'Ans: '+question[quNo].ans"></span>
               </template>
             </h4>
-            <div class="row">
-              <button class="column button-outline" @click="compare(1)">
-                1
-              </button>
-              <button class="column button-outline" @click="compare(2)">
-                2
-              </button>
-            </div>
-            <div class="row">
-              <button class="column button-outline" @click="compare(3)">
-                3
-              </button>
-              <button class="column button-outline" @click="compare(4)">
-                4
-              </button>
+            <div class="myRow">
+              <button class="button-outline" @click="compare(1)">1</button>
+              <button class="button-outline" @click="compare(2)">2</button>
+              <button class="button-outline" @click="compare(3)">3</button>
+              <button class="button-outline" @click="compare(4)">4</button>
             </div>
             <div class="row">
               <button class="column" @click="next">下一題</button>
