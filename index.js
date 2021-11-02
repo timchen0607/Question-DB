@@ -6,7 +6,7 @@ document.addEventListener("alpine:init", () => {
       fetch("https://timchen0607.github.io/Question-DB/db.json")
         .then((res) => res.json())
         .then((json) => {
-          this.db = { ...json };
+          this.db = { ...json.question };
           this.main = Object.keys(this.db)[0];
           this.sub = Object.keys(this.db[this.main])[0];
           this.chapter = "all";
