@@ -2,6 +2,7 @@ document.addEventListener("alpine:init", () => {
   Alpine.data("question", () => ({
     init() {
       this.type = null;
+      this.result = null;
       this.question = [];
       fetch("https://timchen0607.github.io/Question-DB/db.json")
         .then((res) => res.json())
@@ -46,13 +47,21 @@ document.addEventListener("alpine:init", () => {
       this.question = [...qu];
       this.quNo = 0;
       this.choose = null;
+      this.result = null;
     },
     compare(ans) {
+      if (this.result !== null) return;
       const qu = this.question[this.quNo];
       const target = [this.main, this.sub, qu.chapter, qu.no].join();
-      qu.score += qu.ans === ans ? 1 : -1;
+      this.result = qu.ans === ans;
+      qu.score += this.result ? 1 : -1;
       this.scoreDB[target] = this.question[this.quNo].score = qu.score;
       localStorage.setItem("scoreDB", JSON.stringify(this.scoreDB));
+    },
+    next() {
+      this.quNo++;
+      this.choose = null;
+      this.result = null;
     },
   }));
 });
