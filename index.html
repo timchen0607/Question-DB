@@ -39,11 +39,11 @@
           <p x-text="'No.'+question[quNo].no"></p>
           <p x-text="'Page.'+question[quNo].page"></p>
           <p x-text="'Score.'+question[quNo].score"></p>
-          <input type="radio" name="choose" @click="compare(1)" />1
-          <input type="radio" name="choose" @click="compare(2)" />2
-          <input type="radio" name="choose" @click="compare(3)" />3
-          <input type="radio" name="choose" @click="compare(4)" />4
-          <button @click="quNo++">Next</button>
+          <input type="radio" x-model="choose" @click="compare(1)" />1
+          <input type="radio" x-model="choose" @click="compare(2)" />2
+          <input type="radio" x-model="choose" @click="compare(3)" />3
+          <input type="radio" x-model="choose" @click="compare(4)" />4
+          <button @click="quNo++;choose = null;">Next</button>
         </div>
       </template>
     </div>

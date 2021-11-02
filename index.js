@@ -45,6 +45,7 @@ document.addEventListener("alpine:init", () => {
       qu.push({ no: 0, page: 0, score: 0 });
       this.question = [...qu];
       this.quNo = 0;
+      this.choose = null;
     },
     compare(ans) {
       const qu = this.question[this.quNo];
