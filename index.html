@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question Database</title>
+  </head>
+  <body>
+    <div class="wrap" x-data="question">
+      <template x-if="!!type">
+        <div>
+          <select x-model="main">
+            <template x-for="item in Object.keys(db)" :key="item">
+              <option :value="item" x-text="item"></option>
+            </template>
+          </select>
+          <select x-model="sub">
+            <template x-for="item in Object.keys(db[main])" :key="item">
+              <option :value="item" x-text="item"></option>
+            </template>
+          </select>
+          <select x-model="chapter">
+            <option value="all">全部</option>
+            <option value="mistake">錯誤</option>
+            <template x-for="item in Object.keys(db[main][sub])" :key="item">
+              <option :value="item" x-text="item"></option>
+            </template>
+          </select>
+          <select x-model="type">
+            <option value="order">順序</option>
+            <option value="random">隨機</option>
+          </select>
+          <button @click="generate">出題!</button>
+        </div>
+      </template>
+      <template x-if="question.length > 0 && question.length > quNo + 1">
+        <div>
+          <p x-text="'No.'+question[quNo].no"></p>
+          <p x-text="'Page.'+question[quNo].page"></p>
+          <p x-text="'Score.'+question[quNo].score"></p>
+          <input type="radio" name="choose" @click="compare(1)" />1
+          <input type="radio" name="choose" @click="compare(2)" />2
+          <input type="radio" name="choose" @click="compare(3)" />3
+          <input type="radio" name="choose" @click="compare(4)" />4
+          <button @click="quNo++">Next</button>
+        </div>
+      </template>
+    </div>
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
