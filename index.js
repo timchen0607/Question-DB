@@ -62,6 +62,7 @@ document.addEventListener("alpine:init", () => {
       this.$refs.progress.classList.add("show");
     },
     next() {
+      if (this.result === null) return;
       this.$refs.progress.classList.remove("show");
       this.quNo++;
       this.choose = null;
