@@ -49,7 +49,7 @@
         cursor: pointer;
       }
       .myRow .btn {
-        width: 64.1%;
+        width: 30%;
         margin: 0.3rem;
       }
       .myRow .button-outline {
@@ -78,23 +78,26 @@
       <div class="box">
         <template x-if="!!type">
           <div class="myRow">
-            <select class="column" x-model="main">
+            <select class="column" x-model="main" @change="preset(1)">
               <template x-for="item in Object.keys(db)" :key="item">
                 <option :value="item" x-text="item"></option>
               </template>
             </select>
-            <select class="column" x-model="sub">
+            <select class="column" x-model="sub" @change="preset(0)">
               <template x-for="item in Object.keys(db[main])" :key="item">
                 <option :value="item" x-text="item"></option>
               </template>
             </select>
             <select class="column" x-model="chapter">
-              <option value="all">全部</option>
-              <option value="mistake">錯誤</option>
-              <option value="mistake2">重大錯誤</option>
               <template x-for="item in Object.keys(db[main][sub])" :key="item">
                 <option :value="item" x-text="item"></option>
               </template>
+            </select>
+            <select class="column" x-model="mode">
+              <option value="all">全部</option>
+              <option value="review">複習</option>
+              <option value="mistake">錯誤</option>
+              <option value="terrible">糟糕</option>
             </select>
             <select class="column" x-model="type">
               <option value="order">順序</option>
@@ -107,8 +110,8 @@
           <div>
             <hr />
             <h3>
-              <strong x-text="question[quNo].chapter"></strong> ｜
-              <strong x-text="'All: '+question.length"></strong>
+              <strong x-text="chapter"></strong> ｜
+              <span x-text="'All: ' + question.length - 1"></span>
             </h3>
             <h3>
               <strong x-text="'No: '+question[quNo].no"></strong> ｜

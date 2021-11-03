@@ -10,36 +10,30 @@ document.addEventListener("alpine:init", () => {
           this.db = { ...json.question };
           this.main = Object.keys(this.db)[0];
           this.sub = Object.keys(this.db[this.main])[0];
-          this.chapter = "all";
+          this.chapter = Object.keys(this.db[this.main][this.sub])[0];
+          this.mode = "all";
           this.type = "order";
           this.scoreDB = localStorage.getItem("scoreDB")
             ? JSON.parse(localStorage.getItem("scoreDB"))
             : {};
         });
     },
+    preset(tag) {
+      if (tag) this.sub = Object.keys(this.db[this.main])[0];
+      this.chapter = Object.keys(this.db[this.main][this.sub])[0];
+    },
     generate() {
       let qu = [];
-      const quDB = this.db[this.main][this.sub];
-      Object.keys(quDB).forEach((chapter) =>
-        Object.keys(quDB[chapter]).forEach((no) => {
-          const target = [this.main, this.sub, chapter, no].join();
-          quDB[chapter][no].no = no;
-          quDB[chapter][no].chapter = chapter;
-          quDB[chapter][no].score = this.scoreDB[target]
-            ? this.scoreDB[target]
-            : 0;
-          if (
-            (this.chapter === "mistake" && quDB[chapter][no].score >= 0) ||
-            (this.chapter === "mistake2" && quDB[chapter][no].score > -3) ||
-            (this.chapter !== "all" &&
-              this.chapter !== "mistake" &&
-              this.chapter !== "mistake2" &&
-              this.chapter !== chapter)
-          )
-            return;
-          qu.push(quDB[chapter][no]);
-        })
-      );
+      const quDB = this.db[this.main][this.sub][this.chapter];
+      Object.keys(quDB).forEach((no) => {
+        const target = [this.main, this.sub, this.chapter, no].join();
+        quDB[no].no = no;
+        quDB[no].score = this.scoreDB[target] ? this.scoreDB[target] : 0;
+        if (this.mode === "review" && quDB[no].score > 3) return;
+        if (this.mode === "mistake" && quDB[no].score >= 0) return;
+        if (this.mode === "terrible" && quDB[no].score > -3) return;
+        qu.push(quDB[no]);
+      });
       if (this.type === "random")
         for (let i = qu.length - 1; i > 0; i--) {
           let j = Math.floor(Math.random() * (i + 1));
@@ -54,7 +48,7 @@ document.addEventListener("alpine:init", () => {
     compare(ans) {
       if (this.result !== null) return;
       const qu = this.question[this.quNo];
-      const target = [this.main, this.sub, qu.chapter, qu.no].join();
+      const target = [this.main, this.sub, this.chapter, qu.no].join();
       this.result = qu.ans === ans;
       qu.score += this.result ? 1 : -1;
       this.scoreDB[target] = this.question[this.quNo].score = qu.score;
