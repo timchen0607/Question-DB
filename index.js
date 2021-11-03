@@ -29,7 +29,7 @@ document.addEventListener("alpine:init", () => {
         const target = [this.main, this.sub, this.chapter, no].join();
         quDB[no].no = no;
         quDB[no].score = this.scoreDB[target] ? this.scoreDB[target] : 0;
-        if (this.mode === "review" && quDB[no].score > 3) return;
+        if (this.mode === "review" && quDB[no].score >= 3) return;
         if (this.mode === "mistake" && quDB[no].score >= 0) return;
         if (this.mode === "terrible" && quDB[no].score > -3) return;
         qu.push(quDB[no]);
