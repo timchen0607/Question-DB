@@ -149,20 +149,24 @@
         <template x-if="question.length > 1 && question.length > quNo + 1">
           <div>
             <hr />
-            <h3>
-              <strong x-text="quChapter"></strong> ｜
-              <span x-text="'All: ' + (question.length - 1)"></span>
+            <h3 class="t-center">
+              <strong x-text="quChapter"></strong> ｜ 題數:
+              <span x-text="quNo + 1"></span> /
+              <span x-text="question.length - 1"></span>
             </h3>
             <h3>
-              <strong x-text="'No: '+question[quNo].no"></strong> ｜
-              <span x-text="'Page: '+question[quNo].page"></span>
-            </h3>
-            <h4>
-              <strong x-text="'Score: '+question[quNo].score"></strong> ｜ Ans:
+              <strong x-text="'題: ' + question[quNo].no"></strong> ｜
+              <span x-text="'頁: ' + question[quNo].page"></span> ｜ 分:
+              <strong x-text="question[quNo].score"></strong> ｜ 答:
               <template x-if="result !== null">
-                <span x-text="''+question[quNo].ans"></span>
+                <span x-text="question[quNo].ans"></span>
               </template>
-            </h4>
+            </h3>
+            <h5>
+              <strong x-text="'次題: ' + question[quNo + 1].no"></strong> ｜ 頁:
+              <span x-text="question[quNo + 1].page"></span> ｜ 分:
+              <strong x-text="question[quNo + 1].score"></strong>
+            </h5>
             <div class="myRow">
               <button class="button-outline" @click="compare(1)">1</button>
               <button class="button-outline" @click="compare(2)">2</button>
@@ -177,6 +181,7 @@
         </template>
         <template x-if="question.length > 1 && question.length === quNo + 1">
           <div>
+            <hr />
             <h2 class="t-center"><strong>Finish!</strong></h2>
             <h3 class="t-center">
               <strong x-text="bingo"></strong> /
