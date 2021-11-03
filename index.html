@@ -15,6 +15,9 @@
       body {
         margin: 0;
       }
+      .t-center {
+        text-align: center;
+      }
       .bg {
         width: 100vw;
         height: 100vh;
@@ -143,7 +146,7 @@
             <button class="btn" @click="generate">出題!</button>
           </div>
         </template>
-        <template x-if="question.length > 0 && question.length > quNo + 1">
+        <template x-if="question.length > 1 && question.length > quNo + 1">
           <div>
             <hr />
             <h3>
@@ -170,6 +173,16 @@
             <div class="progressBox" x-ref="progress">
               <div id="myBar" class="progressBar"></div>
             </div>
+          </div>
+        </template>
+        <template x-if="question.length > 1 && question.length === quNo + 1">
+          <div>
+            <h2 class="t-center"><strong>Finish!</strong></h2>
+            <h3 class="t-center">
+              <strong x-text="bingo"></strong> /
+              <strong x-text="reply"></strong> |
+              <strong x-text="percent + ' %'"></strong>
+            </h3>
           </div>
         </template>
       </div>

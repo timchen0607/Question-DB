@@ -4,6 +4,7 @@ document.addEventListener("alpine:init", () => {
       this.type = null;
       this.result = null;
       this.question = [];
+      this.bingo = this.reply = this.percent = 0;
       fetch("https://timchen0607.github.io/Question-DB/db.json")
         .then((res) => res.json())
         .then((json) => {
@@ -54,6 +55,10 @@ document.addEventListener("alpine:init", () => {
       qu.score += this.result ? 1 : -1;
       this.scoreDB[target] = this.question[this.quNo].score = qu.score;
       localStorage.setItem("scoreDB", JSON.stringify(this.scoreDB));
+      this.bingo += this.result ? 1 : 0;
+      this.reply++;
+      this.percent =
+        this.reply > 0 ? parseInt((this.bingo / this.reply) * 100) : 0;
       this.timeout = setTimeout(() => this.next(), 5000);
       const btn = document.querySelectorAll(".button-outline")[ans - 1];
       btn.classList.add("active");
