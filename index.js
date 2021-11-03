@@ -11,7 +11,7 @@ document.addEventListener("alpine:init", () => {
           this.main = Object.keys(this.db)[0];
           this.sub = Object.keys(this.db[this.main])[0];
           this.chapter = Object.keys(this.db[this.main][this.sub])[0];
-          this.mode = "all";
+          this.mode = "review";
           this.type = "order";
           this.scoreDB = localStorage.getItem("scoreDB")
             ? JSON.parse(localStorage.getItem("scoreDB"))
