@@ -53,7 +53,12 @@ document.addEventListener("alpine:init", () => {
       qu.score += this.result ? 1 : -1;
       this.scoreDB[target] = this.question[this.quNo].score = qu.score;
       localStorage.setItem("scoreDB", JSON.stringify(this.scoreDB));
-      setTimeout(() => this.next(), 5000);
+      const btn = document.querySelectorAll(".button-outline")[ans - 1];
+      setTimeout(() => {
+        btn.classList.remove("active");
+        this.next();
+      }, 5000);
+      btn.classList.add("active");
       this.$refs.progress.classList.add("show");
     },
     next() {

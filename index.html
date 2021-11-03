@@ -55,18 +55,24 @@
       .myRow .button-outline {
         width: 47%;
         font-size: 1.5rem;
-        color: #000 !important;
-        background-color: transparent !important;
+        color: #000;
+        background-color: transparent;
         border-color: #000;
         transition: color 0.5s, background-color 0.5s;
       }
-      .myRow .button-outline:hover {
+      .myRow .button-outline.active {
         color: #fff !important;
         background-color: #000 !important;
       }
-      .myRow .button-outline:focus {
-        color: #fff !important;
-        background-color: #000 !important;
+      .myRow .button-outline:hover {
+        color: #000;
+        border-color: #000;
+      }
+      @media screen and (min-width: 1024px) {
+        .myRow .button-outline:hover {
+          color: #fff;
+          background-color: #000;
+        }
       }
       .next {
         display: block;
