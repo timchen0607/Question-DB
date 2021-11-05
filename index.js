@@ -17,6 +17,17 @@ document.addEventListener("alpine:init", () => {
           this.scoreDB = localStorage.getItem("scoreDB")
             ? JSON.parse(localStorage.getItem("scoreDB"))
             : {};
+
+          Object.keys(this.scoreDB).forEach((item) => {
+            const arr = item.split(",");
+            if (arr[2] !== "第八章") return;
+            const value = this.scoreDB[item];
+            delete this.scoreDB[item];
+            if (arr[3] > 74) arr[2] += "下";
+            else arr[2] += "上";
+            this.scoreDB[arr.join()] = value;
+          });
+          alert("SUCCESS");
         });
     },
     preset(tag) {
