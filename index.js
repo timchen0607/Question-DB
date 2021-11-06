@@ -46,6 +46,7 @@ document.addEventListener("alpine:init", () => {
       this.choose = null;
       this.result = null;
       this.quChapter = this.chapter;
+      this.bingo = this.reply = this.percent = 0;
     },
     compare(ans) {
       if (this.result !== null) return;
