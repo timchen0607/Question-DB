@@ -67,6 +67,7 @@ document.addEventListener("alpine:init", () => {
     },
     next() {
       clearTimeout(this.timeout);
+      if (this.result === null && this.question[this.quNo].score === 0) return;
       document
         .querySelectorAll(".button-outline")
         .forEach((i) => i.classList.remove("active"));
