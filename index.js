@@ -54,6 +54,7 @@ document.addEventListener("alpine:init", () => {
       const target = [this.main, this.sub, this.chapter, qu.no].join();
       this.result = qu.ans === ans;
       qu.score += this.result ? 1 : -1;
+      qu.score += this.result && qu.score <= 0 ? 1 : 0;
       this.scoreDB[target] = this.question[this.quNo].score = qu.score;
       localStorage.setItem("scoreDB", JSON.stringify(this.scoreDB));
       this.bingo += this.result ? 1 : 0;
